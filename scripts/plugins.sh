@@ -18,16 +18,21 @@ plugins() {
     case $line in
       *@plugin*)
         local plugin_name=$(echo "$line" | awk '{ print $4; }' | sed "s/[\'\"]//g")
-        local plugin_dir="${PLUGINS_DIR}/${plugin_name//\//---}"
 
-        if [[ ! -d "${plugin_dir}" ]]; then
-          log " cloning ${plugin_name}..."
-          git clone https://github.com/${plugin_name}.git ${plugin_dir} > /dev/null
-        fi
+        if [[ ! -d "${plugin_name/'~'/${HOME}}" ]]; then
+          local plugin_dir="${PLUGINS_DIR}/${plugin_name//\//---}"
 
-        if [[ -n "${update}" ]]; then
-          log " updating ${plugin_name}..."
-          (cd ${plugin_dir} && git pull)
+          if [[ ! -d "${plugin_dir}" ]]; then
+            log " cloning ${plugin_name}..."
+            git clone https://github.com/${plugin_name}.git ${plugin_dir} > /dev/null
+          fi
+
+          if [[ -n "${update}" ]]; then
+            log " updating ${plugin_name}..."
+            (cd ${plugin_dir} && git pull)
+          fi
+        else
+          plugin_dir=${plugin_name/'~'/${HOME}}
         fi
 
         bash ${plugin_dir}/*.tmux
