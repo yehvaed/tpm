@@ -5,6 +5,8 @@ export CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export HOME_DIR="${XDG_DATA_HOME-${HOME}/.local/share}/$(basename ${CURRENT_DIR})"
 export PLUGINS_DIR="${HOME_DIR}/plugins"
 export DEBUG_OPT=""
+APP_NAME="YTPM"
+
 
 plugins_script_path="${CURRENT_DIR}/scripts/plugins.sh"
 
@@ -15,8 +17,7 @@ new-command() {
   counter=$(( counter + 1))
 }
 
-new-command "@install" "${plugins_script_path}"
-new-command "@update" "${plugins_script_path} update"
-new-command "@clean" "${plugins_script_path} clean"
+new-command "${APP_NAME}Install" "${plugins_script_path}"
+new-command "${APP_NAME}Update" "${plugins_script_path} update"
 
 source ${plugins_script_path} && plugins
