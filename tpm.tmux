@@ -5,7 +5,7 @@ export CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export HOME_DIR="${XDG_DATA_HOME-${HOME}/.local/share}/$(basename ${CURRENT_DIR})"
 export PLUGINS_DIR="${HOME_DIR}/plugins"
 export DEBUG_OPT=""
-APP_NAME="YTPM"
+APP_NAME="TPM"
 
 
 plugins_script_path="${CURRENT_DIR}/scripts/plugins.sh"
