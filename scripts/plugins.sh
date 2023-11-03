@@ -16,6 +16,7 @@ plugins() {
 
   cat ${config_file} | while read line; do
     case $line in
+      "#"*) continue;;
       *@plugin*)
         local plugin_name=$(echo "$line" | awk '{ print $4; }' | sed "s/[\'\"]//g")
 
